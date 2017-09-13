@@ -6,9 +6,6 @@ import java.util.concurrent.Semaphore;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.IntStream;
 
-/**
- * @author Benjamin Winterberg
- */
 public class Semaphore1 {
 
     private static final int NUM_INCREMENTS = 10000;

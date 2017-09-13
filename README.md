@@ -1,8 +1,6 @@
-# Modern Java - A Guide to Java 8
+# Modern Java - A Guide to Java 8 &#9733;
 
-_If you like this project, please give me a star._ &#9733;
-
-> [“Java is still not dead—and people are starting to figure that out.”](https://twitter.com/mreinhold/status/429603588525281280)
+[_Java is still not dead—and people are starting to figure that out_](https://twitter.com/mreinhold/status/429603588525281280)
 
 Welcome to my introduction to [Java 8](https://jdk8.java.net/). This tutorial guides you step by step through all new language features. Backed by short and simple code samples you'll learn how to use default interface methods, lambda expressions, method references and repeatable annotations. At the end of the article you'll be familiar with the most recent [API](http://download.java.net/jdk8/docs/api/) changes like streams, functional interfaces, map extensions and the new Date API. **No walls of text, just a bunch of commented code snippets. Enjoy!**
 
