@@ -1,12 +1,12 @@
-# Современная Java - руководство по Java 8 &#9733;
+# &#9733; Современная Java - руководство по Java 8
 
 [_Java все еще не умерла - и люди начинают это понимать_](https://twitter.com/mreinhold/status/429603588525281280)
 
 Добро пожаловать в мое введение в [Java 8](https://jdk8.java.net). Это руководство поможет вам шаг за шагом пройти через все новые языковые функции. Приведенные краткие и простые примеры кода, вы узнаете, как использовать методы интерфейса по умолчанию, лямбда-выражения, ссылки на методы и повторяемые аннотации. В конце статьи вы будете ознакомлены с последними [API](http://download.java.net/jdk8/docs/api) изменениями такими как: потоки, функциональные интерфейсы, map-расширения и новый API для даты. **Никаких стенок текста, просто куча прокомментированных фрагментов кода. Наслаждайтесь!**
 
-This article was originally posted on [my blog](http://winterbe.com/posts/2014/03/16/java-8-tutorial/). You should [follow me on Twitter](https://twitter.com/winterbe_).
+Эта статья была первоначально размещена на [моем блоге](http://winterbe.com/posts/2014/03/16/java-8-tutorial). Вам следует [подписаться на меня в Твиттере](https://twitter.com/winterbe_).
 
-## Table of Contents
+## Содержание
 
 * [Default Methods for Interfaces](#default-methods-for-interfaces)
 * [Lambda expressions](#lambda-expressions)
