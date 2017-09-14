@@ -3,20 +3,15 @@ package com.winterbe.java8.samples.concurrent;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.TimeUnit;
 
-/**
- * @author Benjamin Winterberg
- */
 public class ConcurrentUtils {
 
     public static void stop(ExecutorService executor) {
         try {
             executor.shutdown();
             executor.awaitTermination(60, TimeUnit.SECONDS);
-        }
-        catch (InterruptedException e) {
+        } catch (InterruptedException e) {
             System.err.println("termination interrupted");
-        }
-        finally {
+        } finally {
             if (!executor.isTerminated()) {
                 System.err.println("killing non-finished tasks");
             }
@@ -31,5 +26,4 @@ public class ConcurrentUtils {
             throw new IllegalStateException(e);
         }
     }
-
 }

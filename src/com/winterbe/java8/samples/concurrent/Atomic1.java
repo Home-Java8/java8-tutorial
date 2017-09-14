@@ -4,28 +4,33 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.IntStream;
+import org.junit.Test;
+import org.junit.Before;
 
 public class Atomic1 {
 
     private static final int NUM_INCREMENTS = 1000;
 
-    private static AtomicInteger atomicInt = new AtomicInteger(0);
+    private AtomicInteger atomicInt;
 
-    public static void main(String[] args) {
-        testIncrement();
-        testAccumulate();
-        testUpdate();
+    @Before
+    public void init(){
+//        atomicInt = new AtomicInteger(0);
+        atomicInt = new AtomicInteger();
+        atomicInt.set(0);
     }
 
-    private static void testUpdate() {
-        atomicInt.set(0);
-
+    /**
+     * Update
+     */
+    @Test
+    public void testUpdate(){
         ExecutorService executor = Executors.newFixedThreadPool(2);
 
         IntStream.range(0, NUM_INCREMENTS)
                 .forEach(i -> {
                     Runnable task = () ->
-                            atomicInt.updateAndGet(n -> n + 2);
+                            atomicInt.updateAndGet(n -> n+2);
                     executor.submit(task);
                 });
 
@@ -34,15 +39,17 @@ public class Atomic1 {
         System.out.format("Update: %d\n", atomicInt.get());
     }
 
-    private static void testAccumulate() {
-        atomicInt.set(0);
-
+    /**
+     * Accumulate
+     */
+    @Test
+    public void testAccumulate(){
         ExecutorService executor = Executors.newFixedThreadPool(2);
 
         IntStream.range(0, NUM_INCREMENTS)
                 .forEach(i -> {
                     Runnable task = () ->
-                            atomicInt.accumulateAndGet(i, (n, m) -> n + m);
+                            atomicInt.accumulateAndGet(i, (n, m) -> n+m);
                     executor.submit(task);
                 });
 
@@ -51,9 +58,11 @@ public class Atomic1 {
         System.out.format("Accumulate: %d\n", atomicInt.get());
     }
 
-    private static void testIncrement() {
-        atomicInt.set(0);
-
+    /**
+     * Increment
+     */
+    @Test
+    public void testIncrement(){
         ExecutorService executor = Executors.newFixedThreadPool(2);
 
         IntStream.range(0, NUM_INCREMENTS)
@@ -63,5 +72,4 @@ public class Atomic1 {
 
         System.out.format("Increment: Expected=%d; Is=%d\n", NUM_INCREMENTS, atomicInt.get());
     }
-
 }
