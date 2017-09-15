@@ -6,27 +6,27 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
+import org.junit.Test;
+import org.junit.Before;
 
-/**
- * @author Benjamin Winterberg
- */
-public class Executors2 {
+public class Executors2Test {
 
-    public static void main(String[] args) throws ExecutionException, InterruptedException, TimeoutException {
-//        test1();
-//        test2();
-        test3();
-    }
+//    public static void main(String[] args) throws ExecutionException, InterruptedException, TimeoutException {
+////        test1();
+////        test2();
+//        test3();
+//    }
 
-    private static void test3() throws InterruptedException, ExecutionException, TimeoutException {
+    @Test(expected = TimeoutException.class)
+    public void test3()
+            throws InterruptedException, ExecutionException, TimeoutException {
         ExecutorService executor = Executors.newFixedThreadPool(1);
 
         Future<Integer> future = executor.submit(() -> {
             try {
                 TimeUnit.SECONDS.sleep(2);
                 return 123;
-            }
-            catch (InterruptedException e) {
+            } catch (InterruptedException e){
                 throw new IllegalStateException("task interrupted", e);
             }
         });
@@ -34,15 +34,16 @@ public class Executors2 {
         future.get(1, TimeUnit.SECONDS);
     }
 
-    private static void test2() throws InterruptedException, ExecutionException {
+    @Test(expected = ExecutionException.class)
+    public void test2()
+            throws InterruptedException, ExecutionException {
         ExecutorService executor = Executors.newFixedThreadPool(1);
 
         Future<Integer> future = executor.submit(() -> {
             try {
                 TimeUnit.SECONDS.sleep(1);
                 return 123;
-            }
-            catch (InterruptedException e) {
+            } catch (InterruptedException e){
                 throw new IllegalStateException("task interrupted", e);
             }
         });
@@ -51,15 +52,16 @@ public class Executors2 {
         future.get();
     }
 
-    private static void test1() throws InterruptedException, ExecutionException {
+    @Test
+    public void test1()
+            throws InterruptedException, ExecutionException {
         ExecutorService executor = Executors.newFixedThreadPool(1);
 
         Future<Integer> future = executor.submit(() -> {
             try {
                 TimeUnit.SECONDS.sleep(1);
                 return 123;
-            }
-            catch (InterruptedException e) {
+            } catch (InterruptedException e){
                 throw new IllegalStateException("task interrupted", e);
             }
         });
@@ -73,5 +75,4 @@ public class Executors2 {
 
         executor.shutdownNow();
     }
-
 }
