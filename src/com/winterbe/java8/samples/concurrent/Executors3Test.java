@@ -14,6 +14,16 @@ import org.junit.Before;
 
 public class Executors3Test {
 
+    private static Callable<String> callable(String result, long sleepSeconds) {
+        return () -> {
+            TimeUnit.SECONDS.sleep(sleepSeconds);
+            return result;
+        };
+    }
+
+    /**
+     * Callable
+     */
     @Test
     public void test5()
             throws InterruptedException, ExecutionException {
@@ -30,13 +40,9 @@ public class Executors3Test {
         executor.shutdown();
     }
 
-    private static Callable<String> callable(String result, long sleepSeconds) {
-        return () -> {
-            TimeUnit.SECONDS.sleep(sleepSeconds);
-            return result;
-        };
-    }
-
+    /**
+     * Callable
+     */
     @Test
     public void test4()
             throws InterruptedException {
@@ -52,8 +58,7 @@ public class Executors3Test {
                 .map(future -> {
                     try {
                         return future.get();
-                    }
-                    catch (Exception e) {
+                    } catch (Exception e){
                         throw new IllegalStateException(e);
                     }
                 })
@@ -62,6 +67,9 @@ public class Executors3Test {
         executor.shutdown();
     }
 
+    /**
+     * Scheduled
+     */
     @Test
     public void test3(){
         ScheduledExecutorService executor = Executors.newScheduledThreadPool(1);
@@ -70,8 +78,7 @@ public class Executors3Test {
             try {
                 TimeUnit.SECONDS.sleep(2);
                 System.out.println("Scheduling: " + System.nanoTime());
-            }
-            catch (InterruptedException e) {
+            } catch (InterruptedException e) {
                 System.err.println("task interrupted");
             }
         };
@@ -79,6 +86,9 @@ public class Executors3Test {
         executor.scheduleWithFixedDelay(task, 0, 1, TimeUnit.SECONDS);
     }
 
+    /**
+     * Scheduled
+     */
     @Test
     public void test2(){
         ScheduledExecutorService executor = Executors.newScheduledThreadPool(1);
@@ -88,6 +98,9 @@ public class Executors3Test {
         executor.scheduleAtFixedRate(task, initialDelay, period, TimeUnit.SECONDS);
     }
 
+    /**
+     * Scheduled
+     */
     @Test
     public void test1()
             throws InterruptedException {
