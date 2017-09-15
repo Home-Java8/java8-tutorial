@@ -18,7 +18,7 @@ public class Executors2Test {
         Future<Integer> future = executor.submit(() -> {
             try {
                 TimeUnit.SECONDS.sleep(2);
-                return 123;
+                return 0;
             } catch (InterruptedException e){
                 throw new IllegalStateException("task interrupted", e);
             }
@@ -35,7 +35,7 @@ public class Executors2Test {
         Future<Integer> future = executor.submit(() -> {
             try {
                 TimeUnit.SECONDS.sleep(1);
-                return 123;
+                return 0;
             } catch (InterruptedException e){
                 throw new IllegalStateException("task interrupted", e);
             }
@@ -53,7 +53,7 @@ public class Executors2Test {
         Future<Integer> future = executor.submit(() -> {
             try {
                 TimeUnit.SECONDS.sleep(1);
-                return 123;
+                return 0;
             } catch (InterruptedException e){
                 throw new IllegalStateException("task interrupted", e);
             }
