@@ -4,22 +4,25 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.LongAdder;
 import java.util.stream.IntStream;
+import org.junit.Test;
+import org.junit.Before;
 
-/**
- * @author Benjamin Winterberg
- */
-public class LongAdder1 {
+public class LongAdder1Test {
 
     private static final int NUM_INCREMENTS = 10000;
 
-    private static LongAdder adder = new LongAdder();
+    private LongAdder adder;
 
-    public static void main(String[] args) {
-        testIncrement();
-        testAdd();
+    @Before
+    public void init(){
+        adder = new LongAdder();
     }
 
-    private static void testAdd() {
+    /**
+     * Add
+     */
+    @Test
+    public void testAdd() {
         ExecutorService executor = Executors.newFixedThreadPool(2);
 
         IntStream.range(0, NUM_INCREMENTS)
@@ -30,7 +33,11 @@ public class LongAdder1 {
         System.out.format("Add: %d\n", adder.sumThenReset());
     }
 
-    private static void testIncrement() {
+    /**
+     * Increment
+     */
+    @Test
+    public void testIncrement(){
         ExecutorService executor = Executors.newFixedThreadPool(2);
 
         IntStream.range(0, NUM_INCREMENTS)

@@ -7,7 +7,7 @@ import java.util.stream.IntStream;
 import org.junit.Test;
 import org.junit.Before;
 
-public class Atomic1 {
+public class Atomic1Test {
 
     private static final int NUM_INCREMENTS = 1000;
 

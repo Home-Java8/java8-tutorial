@@ -9,22 +9,14 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
+import org.junit.Test;
+import org.junit.Before;
 
-/**
- * @author Benjamin Winterberg
- */
-public class Executors3 {
+public class Executors3Test {
 
-    public static void main(String[] args) throws InterruptedException, ExecutionException {
-        test1();
-//        test2();
-//        test3();
-
-//        test4();
-//        test5();
-    }
-
-    private static void test5() throws InterruptedException, ExecutionException {
+    @Test
+    public void test5()
+            throws InterruptedException, ExecutionException {
         ExecutorService executor = Executors.newWorkStealingPool();
 
         List<Callable<String>> callables = Arrays.asList(
@@ -45,7 +37,9 @@ public class Executors3 {
         };
     }
 
-    private static void test4() throws InterruptedException {
+    @Test
+    public void test4()
+            throws InterruptedException {
         ExecutorService executor = Executors.newWorkStealingPool();
 
         List<Callable<String>> callables = Arrays.asList(
@@ -68,7 +62,8 @@ public class Executors3 {
         executor.shutdown();
     }
 
-    private static void test3() {
+    @Test
+    public void test3(){
         ScheduledExecutorService executor = Executors.newScheduledThreadPool(1);
 
         Runnable task = () -> {
@@ -84,7 +79,8 @@ public class Executors3 {
         executor.scheduleWithFixedDelay(task, 0, 1, TimeUnit.SECONDS);
     }
 
-    private static void test2() {
+    @Test
+    public void test2(){
         ScheduledExecutorService executor = Executors.newScheduledThreadPool(1);
         Runnable task = () -> System.out.println("Scheduling: " + System.nanoTime());
         int initialDelay = 0;
@@ -92,7 +88,9 @@ public class Executors3 {
         executor.scheduleAtFixedRate(task, initialDelay, period, TimeUnit.SECONDS);
     }
 
-    private static void test1() throws InterruptedException {
+    @Test
+    public void test1()
+            throws InterruptedException {
         ScheduledExecutorService executor = Executors.newScheduledThreadPool(1);
 
         Runnable task = () -> System.out.println("Scheduling: " + System.nanoTime());
@@ -104,5 +102,4 @@ public class Executors3 {
         long remainingDelay = future.getDelay(TimeUnit.MILLISECONDS);
         System.out.printf("Remaining Delay: %sms\n", remainingDelay);
     }
-
 }
