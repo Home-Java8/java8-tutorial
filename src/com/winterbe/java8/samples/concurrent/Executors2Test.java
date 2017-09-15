@@ -7,15 +7,8 @@ import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 import org.junit.Test;
-import org.junit.Before;
 
 public class Executors2Test {
-
-//    public static void main(String[] args) throws ExecutionException, InterruptedException, TimeoutException {
-////        test1();
-////        test2();
-//        test3();
-//    }
 
     @Test(expected = TimeoutException.class)
     public void test3()
