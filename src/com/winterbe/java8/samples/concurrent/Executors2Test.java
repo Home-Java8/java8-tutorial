@@ -16,7 +16,23 @@ public class Executors2Test {
             throws InterruptedException, ExecutionException, TimeoutException {
         ExecutorService executor = Executors.newFixedThreadPool(1);
 
-        Future<Integer> future = executor.submit(() -> {  // Future submit(Runnable|Callable)
+        /*
+         * Лямбда - прежде всего это функциональный интерфейс <FunctionalInterface>
+         *
+         * У функционального интерфейса есть только один метод либо с параметрами либо без...
+         * 1. Поэтому, если у нас 1-параметр - его можно указать без скобок!
+         * 2. если у нас 2 и более параметров - их нужно указать в скобках!
+         * 3. если у нас отсутствуют параметры - тогда нужно указать просто пустые скобки!
+         * название самого метода при этом не пишем (потому-что он один и писать его незачем...)
+         *
+         * Дальше '->' говорим что мы переопределяем тело функции
+         *
+         * Потом определяем тело для этой функции:
+         * - если тело функции одно-строчное, тогда можно фигурные скобки не указывать
+         * - если тело функции много-строчное, тогда нужно указать фигурные скобки!
+         * - если тело функции одно-строчное и без фигурных скобок, тогда будет автоматически выполнен return результата...
+         */
+        Future<Integer> future = executor.submit(() -> {  // Future submit(<FunctionalInterface>) // Future submit(Runnable|Callable)
             try {
                 TimeUnit.SECONDS.sleep(2);
                 return 0;
@@ -26,12 +42,13 @@ public class Executors2Test {
         });
 
         int result = -1;
-        while (!future.isDone())
-            result = future.get(3, TimeUnit.SECONDS);
+//        while (!future.isDone())
+            result = future.get(); // здесь 'Future' дожидается завершиения выполнения потока
+//            result = future.get(1, TimeUnit.SECONDS); // java.util.concurrent.TimeoutException - изменим ограничение на время ожидания...
         System.out.println("result = " + result);
     }
 
-    @Test(expected = ExecutionException.class)
+    @Test //@Test(expected = ExecutionException.class)
     public void test2()
             throws InterruptedException, ExecutionException {
         ExecutorService executor = Executors.newFixedThreadPool(1);
@@ -45,8 +62,10 @@ public class Executors2Test {
             }
         });
 
-        executor.shutdownNow();
-        future.get();
+        executor.shutdown();    // метод 'shutdown' дожидается завершиения выполнения потока
+//        executor.shutdownNow(); // java.util.concurrent.ExecutionException
+        int result = future.get();
+        System.out.println("result = " + result);
     }
 
     @Test
@@ -63,13 +82,13 @@ public class Executors2Test {
             }
         });
 
-        System.out.println("future done: " + future.isDone());
+        System.out.println("future done: " + future.isDone()); // проверяем завершения потока
 
-        Integer result = future.get();
+        Integer result = future.get(); // дожидаемся завершения потока
 
-        System.out.println("future done: " + future.isDone());
+        System.out.println("future done: " + future.isDone()); // проверяем завершения потока
         System.out.print("result: " + result);
 
-        executor.shutdownNow();
+        executor.shutdownNow(); // явно-неприменно прекращаем работу потока
     }
 }
