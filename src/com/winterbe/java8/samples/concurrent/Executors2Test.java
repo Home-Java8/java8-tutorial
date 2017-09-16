@@ -10,12 +10,13 @@ import org.junit.Test;
 
 public class Executors2Test {
 
-    @Test(expected = TimeoutException.class)
+//    @Test(expected = TimeoutException.class)
+    @Test
     public void test3()
             throws InterruptedException, ExecutionException, TimeoutException {
         ExecutorService executor = Executors.newFixedThreadPool(1);
 
-        Future<Integer> future = executor.submit(() -> {
+        Future<Integer> future = executor.submit(() -> {  // Future submit(Runnable|Callable)
             try {
                 TimeUnit.SECONDS.sleep(2);
                 return 0;
@@ -24,7 +25,10 @@ public class Executors2Test {
             }
         });
 
-        future.get(1, TimeUnit.SECONDS);
+        int result = -1;
+        while (!future.isDone())
+            result = future.get(3, TimeUnit.SECONDS);
+        System.out.println("result = " + result);
     }
 
     @Test(expected = ExecutionException.class)
